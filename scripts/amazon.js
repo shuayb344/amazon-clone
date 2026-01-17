@@ -42,7 +42,7 @@ productsHtml += `
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-addedto-cart${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -61,6 +61,14 @@ const { productId } = button.dataset;
 let matchingItem;
 const selector = document.querySelector(`.js-quantityselector-${productId}`);
 let value = Number(selector.value)
+const added = document.querySelector(`.js-addedto-cart${productId}`);
+added.classList.add('addedto-cart');
+
+const timeId = setTimeout(()=>{
+ if(added.classList.contains('addedto-cart')){
+  added.classList.remove('addedto-cart');
+}},2000)
+
 cart.forEach((item)=>{
   if(productId === item.productId){
     matchingItem = item;

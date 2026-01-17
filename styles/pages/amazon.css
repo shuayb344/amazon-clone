@@ -143,6 +143,8 @@
      opacity and make it visible. */
   opacity: 0;
 }
+.addedto-cart{
+  opacity: 1;}
 
 .added-to-cart img {
   height: 20px;
