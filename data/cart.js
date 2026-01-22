@@ -38,3 +38,10 @@ export function removeProductFromCart(productId){
   cart = newcart;
   saveCart();
 }
+export function calculateCartQuantity(){
+   let cartQuantity = 0;
+  cart.forEach((cartItem)=>{
+     cartQuantity += cartItem.quantity;
+  });
+  return cartQuantity;
+}

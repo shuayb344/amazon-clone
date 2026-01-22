@@ -1,5 +1,5 @@
 import { products } from '../data/products.js';
-import { cart, addProductToCart } from '../data/cart.js';
+import { cart, addProductToCart,calculateCartQuantity } from '../data/cart.js';
 import { formatMoney } from './utils/money.js';
 let productsHtml = '';
 products.forEach((product)=>{
@@ -57,11 +57,8 @@ productsHtml += `
 })
 document.getElementById('products-grid').innerHTML = productsHtml;
 
-function getCartQuantity(){
-  let cartQuantity = 0;
-  cart.forEach((cartItem)=>{
-     cartQuantity += cartItem.quantity;
-  });
+function updateCartQuantity(){
+ const cartQuantity = calculateCartQuantity();
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 document.querySelectorAll('.js-addtocart').forEach((button)=>{
@@ -79,10 +76,7 @@ const timeId = setTimeout(()=>{
 }},2000)
 
 addProductToCart(productId, value);
-getCartQuantity();
-  
- 
-  
+updateCartQuantity();
 })
-getCartQuantity();
+updateCartQuantity();
 })
