@@ -45,3 +45,12 @@ export function calculateCartQuantity(){
   });
   return cartQuantity;
 }
+export function updateCartItemQuantity(productId, quantity){
+  cart.forEach((cartItem)=>{
+    if(cartItem.productId === productId){
+      cartItem.quantity = quantity;
+    }
+  });
+  document.querySelector(`.js-quantity-label`).innerHTML = `${quantity}`;
+  saveCart();
+}
