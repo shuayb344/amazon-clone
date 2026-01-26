@@ -58,3 +58,13 @@ export function updateCartItemQuantity(productId, quantity){
   document.querySelector(`.js-quantity-label`).innerHTML = `${quantity}`;
   saveCart();
 }
+export function UpdateDeliveryOption(productId,deliveryOptionId){
+   let matchingItem = null;
+  cart.forEach((cartItem)=>{
+    if(productId === cartItem.productId){
+      matchingItem = cartItem;
+    }
+  })
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  saveCart();
+}
