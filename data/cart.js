@@ -61,6 +61,7 @@ export function updateCartItemQuantity(productId, quantity){
   });
   document.querySelector(`.js-quantity-label`).innerHTML = `${quantity}`;
   saveCart();
+  renderPaymentSummary();
 }
 export function UpdateDeliveryOption(productId,deliveryOptionId){
    let matchingItem = null;
