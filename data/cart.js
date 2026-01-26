@@ -1,3 +1,5 @@
+import { renderPaymentSummary } from "../scripts/checkout/payment.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart')) ||
 [{
   productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -30,6 +32,7 @@ export function addProductToCart(productId, value=1){
     quantity : value,
     deliveryOptionId: '1'
   }); }
+  
   saveCart();
 }
 export function removeProductFromCart(productId){
@@ -40,6 +43,7 @@ export function removeProductFromCart(productId){
     }
   });
   cart = newcart;
+  renderPaymentSummary();
   saveCart();
 }
 export function calculateCartQuantity(){
