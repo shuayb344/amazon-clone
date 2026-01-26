@@ -54,12 +54,15 @@ export function calculateCartQuantity(){
   return cartQuantity;
 }
 export function updateCartItemQuantity(productId, quantity){
-  cart.forEach((cartItem)=>{
-    if(cartItem.productId === productId){
-      cartItem.quantity = quantity;
+   let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
     }
   });
-  document.querySelector(`.js-quantity-label`).innerHTML = `${quantity}`;
+
+  matchingItem.quantity = quantity;
   saveCart();
   renderPaymentSummary();
 }

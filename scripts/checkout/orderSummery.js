@@ -36,7 +36,7 @@ cart.forEach((cartItem)=>{
           </div>
           <div class="product-quantity  ">
             <span>
-              Quantity: <span class="quantity-label js-quantity-label">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label js-quantity-label-${matchingItem.id}">${cartItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary js-update-quantity" data-product-id="${matchingItem.id}">
               Update
@@ -77,18 +77,27 @@ cart.forEach((cartItem)=>{
       button.addEventListener('click',()=>{
         const {productId}= button.dataset;
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        // show edit controls and prefill input with current quantity
         container.classList.add('js-edit-quantity','js-edit');
+        const quantityLabel = container.querySelector(`.js-quantity-label-${productId}`);
+        const input = container.querySelector('.js-quantity-input');
+        if(input && quantityLabel) input.value = quantityLabel.innerText.trim();
 
     });});
     document.querySelectorAll('.js-save').forEach((button)=>{
       button.addEventListener('click',()=>{
-        const {productId}= button.dataset;
-         const container = document.querySelector(`.js-cart-item-container-${productId}`);
-          container.classList.remove('js-edit-quantity','js-edit');
-         const value = document.querySelector(`.js-quantity-input`).value;
-          const numberValue = Number(value);
-          updateCartItemQuantity(productId,numberValue);
-          updateCartQuantity();
+      const {productId}= button.dataset;
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        container.classList.remove('js-edit-quantity','js-edit');
+        // scope input lookup to this container so multiple items work
+        const input = container.querySelector('.js-quantity-input');
+        const value = input ? input.value : '';
+        let numberValue = Number(value);
+        if (!Number.isFinite(numberValue) || numberValue < 1) numberValue = 1;
+        updateCartItemQuantity(productId,numberValue);
+        const quantityLabel = container.querySelector(`.js-quantity-label-${productId}`);
+        if (quantityLabel) quantityLabel.innerHTML = numberValue;
+        updateCartQuantity();
           
       });
    }); 
