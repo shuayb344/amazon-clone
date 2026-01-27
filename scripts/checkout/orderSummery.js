@@ -4,6 +4,7 @@ import { formatMoney } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOption.js';
 import { renderPaymentSummary } from './payment.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 export function renderCheckoutPage(){
 let cartItemsHtml = '';
@@ -65,14 +66,10 @@ cart.forEach((cartItem)=>{
       const  {productId } = button.dataset;
      removeProductFromCart(productId);
      const container = document.querySelector(`.js-cart-item-container-${productId}`);
-     container.remove();
-      updateCartQuantity();
+      renderCheckoutPage()
+      renderCheckoutHeader()
     });});
-    function updateCartQuantity(){
-      const cartQuantity = calculateCartQuantity();
-    document.querySelector('.js-quantity').innerHTML = `${cartQuantity} items`;
-    }
-    updateCartQuantity();
+   
     document.querySelectorAll('.js-update-quantity').forEach((button)=>{
       button.addEventListener('click',()=>{
         const {productId}= button.dataset;
@@ -97,7 +94,7 @@ cart.forEach((cartItem)=>{
         updateCartItemQuantity(productId,numberValue);
         const quantityLabel = container.querySelector(`.js-quantity-label-${productId}`);
         if (quantityLabel) quantityLabel.innerHTML = numberValue;
-        updateCartQuantity();
+        renderCheckoutHeader();
           
       });
    }); 
