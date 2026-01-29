@@ -1,6 +1,11 @@
 import { renderCheckoutPage } from "../../scripts/checkout/orderSummery.js";
 import {loadFromStorage } from "../../data/cart.js";
+import { loadProducts } from "../../data/products.js";
 describe('test suite: rendercheckoutPage',()=>{
+beforeAll((done)=>{
+  loadProducts(done)
+})
+
   it('diplays the cart',()=>{
     document.querySelector('.js-test-container').innerHTML =`
     <div class="js-order-summery"></div>
